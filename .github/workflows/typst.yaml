@@ -22,7 +22,7 @@ jobs:
           export PATH="$HOME/.cargo/bin:$PATH"
 
       - name: Install Typst
-        run: cargo install typst
+        run: cargo install --git https://github.com/typst/typst --locked typst-cli
 
       - name: Compile Typst file
         run: typst compile ${{ env.TYPST_FILE }} -o output.pdf
