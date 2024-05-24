@@ -25,7 +25,7 @@ jobs:
         run: cargo install --git https://github.com/typst/typst --locked typst-cli
 
       - name: Compile Typst file
-        run: typst compile ${{ env.TYPST_FILE }} -o output.pdf
+        run: typst compile ${{ env.TYPST_FILE }} output.pdf
 
       - name: Create version tag
         id: vars
