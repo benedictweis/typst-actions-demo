@@ -1,0 +1,34 @@
+name: Compile and Publish Typst PDF
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  TYPST_FILE: your_typst_file.typ
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Typst
+        run: sudo apt-get update && sudo apt-get install -y typst
+
+      - name: Compile Typst file
+        run: typst compile ${{ env.TYPST_FILE }} -o output.pdf
+
+      - name: Create version tag
+        id: vars
+        run: echo ::set-output name=version::$(date +'%Y%m%d%H%M%S')
+
+      - name: Upload PDF to GitHub Packages
+        run: |
+          npm install -g @actions/artifact
+          artifact upload --name compiled-typst-pdf output.pdf --path output.pdf
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
