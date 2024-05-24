@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  TYPST_FILE: your_typst_file.typ
+  TYPST_FILE: main.typ
 
 jobs:
   build:
